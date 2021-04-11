@@ -302,6 +302,40 @@ class TestController:
                                  + "' ?"), "center")
         pop_up.assert_called_once_with(controller, text(), partial())
 
+    def test_mark_stream_as_read_confirmation_popup(self, mocker, controller,
+                                                    stream_button):
+        pop_up = mocker.patch(CORE + '.PopUpConfirmationView')
+        text = mocker.patch(CORE + '.urwid.Text')
+        partial = mocker.patch(CORE + '.partial')
+        controller.loop = mocker.Mock()
+
+        controller.mark_stream_as_read_confirmation_popup(stream_button)
+
+        text.assert_called_with(
+            ("",
+             f"Confirm marking of all messages of stream "
+             f"{stream_button.stream_name} as read ?"),
+            "center"
+        )
+        pop_up.assert_called_once_with(controller, text(), partial())
+
+    def test_mark_topic_as_read_confirmation_popup(self, mocker, controller,
+                                                   topic_button):
+        pop_up = mocker.patch(CORE + '.PopUpConfirmationView')
+        text = mocker.patch(CORE + '.urwid.Text')
+        partial = mocker.patch(CORE + '.partial')
+        controller.loop = mocker.Mock()
+
+        controller.mark_topic_as_read_confirmation_popup(topic_button)
+
+        text.assert_called_with(
+            ("",
+             f"Confirm marking of all messages of '{topic_button.topic_name}'"
+             f" in stream '{topic_button.stream_name}' as read ?"),
+            "center"
+        )
+        pop_up.assert_called_once_with(controller, text(), partial())
+
     @pytest.mark.parametrize('initial_narrow, final_narrow', [
         ([], [['search', 'FOO']]),
         ([['search', 'BOO']], [['search', 'FOO']]),

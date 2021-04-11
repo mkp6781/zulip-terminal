@@ -306,6 +306,32 @@ class Controller:
         self.loop.widget = PopUpConfirmationView(self, question,
                                                  mute_this_stream)
 
+    def mark_stream_as_read_confirmation_popup(self, button: Any) -> None:
+        question = urwid.Text(
+            ("",
+             f"Confirm marking of all messages of stream {button.stream_name} "
+             f"as read ?"),
+            "center"
+        )
+        mark_stream_as_read = partial((self.model.
+                                       mark_all_messages_in_a_stream_as_read),
+                                      button.stream_id)
+        self.loop.widget = PopUpConfirmationView(self, question,
+                                                 mark_stream_as_read)
+
+    def mark_topic_as_read_confirmation_popup(self, button: Any) -> None:
+        question = urwid.Text(
+            ("",
+             f"Confirm marking of all messages of '{button.topic_name}' in "
+             f"stream '{button.stream_name}' as read ?"),
+            "center"
+        )
+        mark_topic_as_read = partial((self.model.
+                                      mark_all_messages_in_a_topic_as_read),
+                                     button.stream_id, button.topic_name)
+        self.loop.widget = PopUpConfirmationView(self, question,
+                                                 mark_topic_as_read)
+
     def _narrow_to(self, anchor: Optional[int], **narrow: Any) -> None:
         already_narrowed = self.model.set_narrow(**narrow)
         if already_narrowed:
