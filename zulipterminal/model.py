@@ -404,6 +404,17 @@ class Model:
         display_error_if_present(response, self.controller)
 
     @asynch
+    def mark_all_messages_in_a_stream_as_read(self, stream_id: int) -> None:
+        response = self.client.mark_stream_as_read(stream_id)
+        display_error_if_present(response, self.controller)
+
+    @asynch
+    def mark_all_messages_in_a_topic_as_read(self, stream_id: int,
+                                             topic: str) -> None:
+        response = self.client.mark_topic_as_read(stream_id, topic)
+        display_error_if_present(response, self.controller)
+
+    @asynch
     def send_typing_status_by_user_ids(self, recipient_user_ids: List[int],
                                        *, status: Literal['start', 'stop']
                                        ) -> None:

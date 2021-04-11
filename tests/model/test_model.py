@@ -773,6 +773,33 @@ class TestModel:
         self.display_error_if_present.assert_called_once_with(response,
                                                               self.controller)
 
+    @pytest.mark.parametrize('stream_id, response', [
+        (5, {"result": "error"}), (1, {"result": "success"})
+    ], ids=['invalid_stream_id', 'valid_stream_id'])
+    def test_mark_all_messages_in_a_stream_as_read(self, model, stream_id,
+                                                   response) -> None:
+        model.client.mark_stream_as_read.return_value = response
+        model.mark_all_messages_in_a_stream_as_read(stream_id)
+
+        model.client.mark_stream_as_read.assert_called_once_with(stream_id)
+        self.display_error_if_present.assert_called_once_with(response,
+                                                              self.controller)
+
+    @pytest.mark.parametrize('stream_id, topic, response', [
+        (5, "hello world", {"result": "error"}),
+        (1, "valid topic", {"result": "success"}),
+        (1, "invalid topic", {"result": "error"}),
+    ], ids=['invalid_stream_id', 'no_such_topic', 'valid_stream_and_topic'])
+    def mark_all_messages_in_a_topic_as_read(self, model, stream_id,
+                                             topic, response) -> None:
+        model.client.mark_topic_as_read.return_value = response
+        model.mark_all_messages_in_a_topic_as_read(stream_id, topic)
+
+        model.client.mark_topic_as_read.assert_called_once_with(stream_id,
+                                                                topic)
+        self.display_error_if_present.assert_called_once_with(response,
+                                                              self.controller)
+
     def test_mark_message_ids_as_read(self, model, mocker: Any) -> None:
         mock_api_query = mocker.patch('zulipterminal.core.Controller'
                                       '.client.update_message_flags')
