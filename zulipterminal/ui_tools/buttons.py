@@ -230,6 +230,8 @@ class StreamButton(TopButton):
     def keypress(self, size: urwid_Size, key: str) -> Optional[str]:
         if is_command_key('TOGGLE_TOPIC', key):
             self.view.left_panel.show_topic_view(self)
+        elif is_command_key('MARK_STREAM_AS_READ', key):
+            self.controller.mark_stream_as_read_confirmation_popup(self)
         elif is_command_key('TOGGLE_MUTE_STREAM', key):
             self.controller.stream_muting_confirmation_popup(self)
         elif is_command_key('STREAM_DESC', key):
@@ -307,6 +309,10 @@ class TopicButton(TopButton):
         self.update_widget(('muted',  MUTE_MARKER), 'muted')
     # TODO: Handle event-based approach for topic-muting.
 
+    def keypress(self, size: urwid_Size, key: str) -> Optional[str]:
+        if is_command_key('MARK_TOPIC_AS_READ', key):
+            self.controller.mark_topic_as_read_confirmation_popup(self)
+        return super().keypress(size, key)
 
 class DecodedStream(TypedDict):
     stream_id: Optional[int]
