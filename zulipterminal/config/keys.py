@@ -246,6 +246,18 @@ KEY_BINDINGS: 'OrderedDict[str, KeyBinding]' = OrderedDict([
         'excluded_from_random_tips': True,
         'key_category': 'stream_list',
     }),
+    ('MARK_STREAM_AS_READ', {
+        'keys': ['r'],
+        'help_text': 'Mark all messages in a stream as read',
+        'excluded_from_random_tips': True,
+        'key_category': 'stream_list',
+    }),
+    ('MARK_TOPIC_AS_READ', {
+        'keys': ['r'],
+        'help_text': 'Mark all messages in a topic as read',
+        'excluded_from_random_tips': True,
+        'key_category': 'topic_list',
+    }),
     ('REDRAW', {
         'keys': ['ctrl l'],
         'help_text': 'Redraw screen',
@@ -340,6 +352,7 @@ HELP_CATEGORIES = OrderedDict([
     ('msg_actions', 'Message actions'),
     ('stream_list', 'Stream list actions'),
     ('msg_compose', 'Composing a Message'),
+    ('topic_list', 'Topic list actions'),
 ])
 
 

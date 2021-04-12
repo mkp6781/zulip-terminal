@@ -63,6 +63,7 @@
 |Mute/unmute Streams|<kbd>m</kbd>|
 |Show/hide stream information & modify settings|<kbd>i</kbd>|
 |Show/hide stream members (from stream information)|<kbd>m</kbd>|
+|Mark all messages in a stream as read|<kbd>r</kbd>|
 
 ## Composing a Message
 |Command|Key Combination|
@@ -87,4 +88,9 @@
 |Jump to the previous line|<kbd>up</kbd> / <kbd>ctrl</kbd> + <kbd>p</kbd>|
 |Jump to the next line|<kbd>down</kbd> / <kbd>ctrl</kbd> + <kbd>n</kbd>|
 |Clear compose box|<kbd>ctrl</kbd> + <kbd>l</kbd>|
+
+## Topic list actions
+|Command|Key Combination|
+| :--- | :---: |
+|Mark all messages in a topic as read|<kbd>r</kbd>|
 
